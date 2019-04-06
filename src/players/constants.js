@@ -1,0 +1,2 @@
+export const LOAD_PLAYERS = 'LOAD_PLAYERS';
+export const SET_PLAYERS_FILTER = 'SET_PLAYERS_FILTER';
