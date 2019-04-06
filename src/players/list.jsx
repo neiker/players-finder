@@ -15,7 +15,7 @@ function PlayerRow({
         {player.nationality}
       </td>
       <td>
-        {player.dateOfBirth}
+        {player.age}
       </td>
     </tr>
   )
@@ -24,6 +24,12 @@ function PlayerRow({
 export default function PlayersList({
   players
 }) {
+  if (!players.length) {
+    return (
+      <span className="error-text">No players found</span>
+    );
+  }
+  
   return (
     <table>
       <thead>
@@ -31,7 +37,7 @@ export default function PlayersList({
           <th>Name</th>
           <th>Position</th>
           <th>Nationality</th>
-          <th>Date of Birth</th>
+          <th>Age</th>
         </tr>
       </thead>
       <tbody>

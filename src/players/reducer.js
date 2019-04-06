@@ -1,6 +1,6 @@
 import {
   LOAD_PLAYERS,
-  SET_PLAYERS_FILTER,
+  SET_PLAYERS_FILTERS,
 } from './constants';
 
 function getDefaultState() {
@@ -8,11 +8,17 @@ function getDefaultState() {
     filters: {
       name: undefined,
       position: undefined,
-      age: undefined
+      age: undefined,
     },
     data: undefined,
     error: false,
   }
+}
+
+function getAge(birthdayTimestamp, nowTimestamp = Date.now()) { 
+  var ageDate = new Date(nowTimestamp - birthdayTimestamp); 
+
+  return ageDate.getUTCFullYear() - 1970;
 }
 
 function loadPlayersReducer(state, action) {
@@ -26,34 +32,35 @@ function loadPlayersReducer(state, action) {
     return {
       ...state,
       error: false,
-      data: action.payload
+      data: action.payload.map(player => {
+        return ({
+          ...player,
+          age: getAge(new Date(player.dateOfBirth).getTime()),
+        })
+      })
     }
   }
 
 }
 
-function setPlayersFilter(state, action) {
-  const {
-    type, 
-    value,
-  } = action.payload;
-
+function setPlayersFilters(state, action) {
   return {
     ...state,
     filters: {
-      ...state.filters,
-      [type]: value
+      name: action.payload.name,
+      position: action.payload.position,
+      age: action.payload.age ? parseInt(action.payload.age, 10) : undefined,
     },
   };
 }
 
-export default (state = getDefaultState(), action) => {
+export default function playersReducer (state = getDefaultState(), action) {
   switch (action.type) {
     case LOAD_PLAYERS:
       return loadPlayersReducer(state, action);
-    case SET_PLAYERS_FILTER:
-      return setPlayersFilter(state, action);
+    case SET_PLAYERS_FILTERS:
+      return setPlayersFilters(state, action);
     default:
-      return state;
+      return state
   }
 }

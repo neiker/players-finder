@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import * as actions from './actions';
+import actions from './actions';
+import selectors from './selectors';
 
 import PlayersFilters from './filters';
 import PlayersList from './list';
@@ -9,6 +10,10 @@ import PlayersList from './list';
 class Players extends React.PureComponent {
   componentDidMount() {
     this.props.fetchPlayers();
+  }
+
+  onSearch = (filters) => {
+    this.props.setPlayersFilters(filters);
   }
 
   render () {
@@ -26,13 +31,15 @@ class Players extends React.PureComponent {
 
     if (error) {
       return (
-        <span className="eror-text">There's was an error loading data.</span>
+        <span className="error-text">There's was an error loading data.</span>
       )
     }
 
     return (
       <>
-        <PlayersFilters onSubmit={console.log} />
+        <h1>Football Players Finder</h1>
+        
+        <PlayersFilters onSubmit={this.onSearch} />
 
         <PlayersList players={players} />
       </>
@@ -42,7 +49,7 @@ class Players extends React.PureComponent {
 
 export default connect(
   store => ({
-    players: store.players.data,
+    players: selectors.getPlayers(store),
     error: store.players.error,
     loading: !store.players.data && !store.players.error
   }),

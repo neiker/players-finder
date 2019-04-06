@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import {
   LOAD_PLAYERS,
-  SET_PLAYERS_FILTER,
+  SET_PLAYERS_FILTERS,
 } from './constants';
 
 function loadPlayersSuccess(players) {
@@ -20,8 +20,7 @@ function loadPlayersFails(error) {
   }
 }
 
-// Public actions
-export function fetchPlayers() {
+function fetchPlayers() {
   return async (dispatch, getStore) => {
     let result;
 
@@ -29,21 +28,23 @@ export function fetchPlayers() {
       result = await axios.get('https://football-players-b31f2.firebaseio.com/players.json?print=pretty');
       
     } catch (e) {
-      return dispatch(loadPlayersFails(e));
+      dispatch(loadPlayersFails(e));
+
+      return;
     }
 
-    if (result) {
-      dispatch(loadPlayersSuccess(result.data));
-    }
+    dispatch(loadPlayersSuccess(result.data));
   }
 }
 
-export function setPlayersFilter(type, value) {
+function setPlayersFilters(filters) {
   return {
-    type: SET_PLAYERS_FILTER,
-    payload: {
-      type,
-      value,
-    }
+    type: SET_PLAYERS_FILTERS,
+    payload: filters
   }
+}
+
+export default {
+  fetchPlayers,
+  setPlayersFilters,
 }

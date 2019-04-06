@@ -19,7 +19,7 @@ const positions = [
   'Right-Back',
 ];
 
-const validateAge = value => {
+function validateAge(value) {
   if (value) {
     const parsedValue = parseInt(value, 10);
 
@@ -33,7 +33,12 @@ const validateAge = value => {
   }
 
   return undefined;
-};
+}
+
+function validateName(value) {
+  // A Inés Ibáñez, Agustín Nuñez y muchas otras personas no le gusta esto. 
+  return /^[a-zA-Z]*$/.test(value) ? undefined : 'Invalid name';
+}
 
 function PlayersFilters({
   onSubmit,
@@ -43,38 +48,44 @@ function PlayersFilters({
       {({ formState }) => (
         <>
           <div>
-            <Text field="name" placeholder="Player Name" />
-          </div>
-
-          <div>
-          <Select field="position">
-            <Option value="" disabled>
-              Position
-            </Option>
-
-            {positions.map(position => (
-              <Option value={position} key={position}>{position}</Option>
-            ))}
-          </Select>
+            <Text 
+              field="name" 
+              placeholder="Player Name" 
+              validate={validateName}
+              validateOnChange={formState.invalid}
+            />
+            {formState.errors.name && (
+              <span className="error-text">{formState.errors.name}</span>
+            )}
 
           </div>
 
           <div>
-          <Text 
-            field="age" 
-            validate={validateAge} 
-            validateOnChange={!!formState.errors.age}
-            placeholder="Player Age" 
-          />
+            <Select field="position">
+              <Option value="">
+                All Positions
+              </Option>
 
-          {formState.errors.age && (
-            <span className="error-text">{formState.errors.age}</span>
-          )}
+              {positions.map(position => (
+                <Option value={position} key={position}>{position}</Option>
+              ))}
+            </Select>
+          </div>
 
-</div>
+          <div>
+            <Text 
+              field="age" 
+              validate={validateAge} 
+              validateOnChange={formState.invalid}
+              placeholder="Player Age" 
+            />
+
+            {formState.errors.age && (
+              <span className="error-text">{formState.errors.age}</span>
+            )}
+          </div>
+
           <button type="submit" disabled={formState.invalid}>Search</button>
-
-          {/* <pre>{JSON.stringify(formState, null, '  ')}</pre> */}
         </>
       )}
     </Form>
