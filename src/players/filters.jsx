@@ -6,6 +6,8 @@ import {
   Option,
  } from 'informed';
 
+ import './filters.css';
+
 const positions = [
   'Attacking Midfield',
   'Central Midfield',
@@ -44,10 +46,10 @@ function PlayersFilters({
   onSubmit,
 }) {
   return (
-    <Form onSubmit={onSubmit}>
+    <Form onSubmit={onSubmit} className="filters-form">
       {({ formState }) => (
         <>
-          <div>
+          <div className="filters-from-row">
             <Text 
               field="name" 
               placeholder="Player Name" 
@@ -60,7 +62,7 @@ function PlayersFilters({
 
           </div>
 
-          <div>
+          <div className="filters-from-row">
             <Select field="position">
               <Option value="">
                 All Positions
@@ -72,7 +74,7 @@ function PlayersFilters({
             </Select>
           </div>
 
-          <div>
+          <div className="filters-from-row">
             <Text 
               field="age" 
               validate={validateAge} 
@@ -85,7 +87,9 @@ function PlayersFilters({
             )}
           </div>
 
-          <button type="submit" disabled={formState.invalid}>Search</button>
+          <div className="filters-from-row">
+            <button type="submit" disabled={formState.invalid}>Search</button>
+          </div>
         </>
       )}
     </Form>

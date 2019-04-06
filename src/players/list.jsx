@@ -29,9 +29,9 @@ export default function PlayersList({
       <span className="error-text">No players found</span>
     );
   }
-  
+
   return (
-    <table>
+    <table className="players-list">
       <thead>
         <tr>
           <th>Name</th>

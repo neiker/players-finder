@@ -1,0 +1,16 @@
+.filters-form {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.filters-from-row {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+}
+
+.filters-form input, .filters-form select {
+  height: 3.8rem;
+  margin-bottom: 0;
+}

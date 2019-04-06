@@ -13,7 +13,9 @@ class App extends Component {
   render() {  
     return (
       <Provider store={store}>
-        <Players />
+        <div className="main">
+          <Players />
+        </div>
       </Provider>
     );
   }

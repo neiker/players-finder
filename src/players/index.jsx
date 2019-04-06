@@ -38,9 +38,11 @@ class Players extends React.PureComponent {
     return (
       <>
         <h1>Football Players Finder</h1>
-        
+
         <PlayersFilters onSubmit={this.onSearch} />
 
+        <hr />
+        
         <PlayersList players={players} />
       </>
     )
