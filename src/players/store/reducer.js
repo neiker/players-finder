@@ -25,6 +25,8 @@ function loadPlayersReducer(state, action) {
   if (action.error) {
     return {
       ...state,
+      // For simplicity proporces, 
+      // we don't care about the error details.
       error: true,
       data: undefined
     }
@@ -33,9 +35,11 @@ function loadPlayersReducer(state, action) {
       ...state,
       error: false,
       data: action.payload.map(player => {
+        const birthdayTimestamp = new Date(player.dateOfBirth).getTime();
+
         return ({
           ...player,
-          age: getAge(new Date(player.dateOfBirth).getTime()),
+          age: getAge(birthdayTimestamp),
         })
       })
     }
@@ -49,7 +53,7 @@ function setPlayersFilters(state, action) {
     filters: {
       name: action.payload.name,
       position: action.payload.position,
-      age: action.payload.age ? parseInt(action.payload.age, 10) : undefined,
+      age: action.payload.age,
     },
   };
 }

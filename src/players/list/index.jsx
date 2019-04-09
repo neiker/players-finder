@@ -1,25 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-function PlayerRow({
-  player,
-}) {
-  return (
-    <tr>
-      <td>
-        {player.name}
-      </td>
-      <td>
-        {player.position}
-      </td>
-      <td>
-        {player.nationality}
-      </td>
-      <td>
-        {player.age}
-      </td>
-    </tr>
-  )
-}
+import PlayerRow from './row';
 
 export default function PlayersList({
   players
@@ -50,4 +32,8 @@ export default function PlayersList({
       </tbody>
     </table>
   )
+}
+
+PlayersList.propTypers = {
+  players: PropTypes.arrayOf(PropTypes.object).isRequired,
 }

@@ -1,13 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import actions from './actions';
-import selectors from './selectors';
+import actions from './store/actions';
+import selectors from './store/selectors';
 
-import PlayersFilters from './filters';
-import PlayersList from './list';
+import PlayersFilters from './filters/index.jsx';
+import PlayersList from './list/index.jsx';
 
-class Players extends React.PureComponent {
+export class Players extends React.PureComponent {
+  static propTypes = {
+    players: PropTypes.arrayOf(PropTypes.object),
+    error: PropTypes.bool.isRequired,
+    loading: PropTypes.bool.isRequired,
+
+    // Actions
+    fetchPlayers: PropTypes.func.isRequired
+  };
+
   componentDidMount() {
     this.props.fetchPlayers();
   }

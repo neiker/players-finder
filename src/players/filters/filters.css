@@ -2,15 +2,19 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+  justify-content: space-between;
 }
 
 .filters-from-row {
   display: flex;
   flex-direction: column;
-  width: 25%;
+  width: 24%;
 }
 
 .filters-form input, .filters-form select {
   height: 3.8rem;
   margin-bottom: 0;
+  border-radius: .4rem;
+  padding: .6rem 1.0rem;
+  border: 0.1rem solid #d1d1d1;
 }

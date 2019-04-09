@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { 
   Form, 
   Text,
@@ -23,9 +25,9 @@ const positions = [
 
 function validateAge(value) {
   if (value) {
-    const parsedValue = parseInt(value, 10);
+    const parsedValue = Number(value);
 
-    if (isNaN(parsedValue)) {
+    if (isNaN(parsedValue) || parseInt(parsedValue, 10) !== parsedValue) {
       return 'Invalid age';
     }
 
@@ -80,6 +82,7 @@ function PlayersFilters({
               validate={validateAge} 
               validateOnChange={formState.invalid}
               placeholder="Player Age" 
+              type="number"
             />
 
             {formState.errors.age && (
@@ -88,12 +91,16 @@ function PlayersFilters({
           </div>
 
           <div className="filters-from-row">
-            <button type="submit" disabled={formState.invalid}>Search</button>
+            <button type="submit" disabled={formState.pristine || formState.invalid}>Search</button>
           </div>
         </>
       )}
     </Form>
   );
+}
+
+PlayersFilters.propTypes = {
+  onSubmit: PropTypes.func.isRequired
 }
 
 export default PlayersFilters;
