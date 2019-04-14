@@ -1,6 +1,6 @@
 import {
-  LOAD_PLAYERS,
-  SET_PLAYERS_FILTERS,
+  LOAD_PLAYERS_ACTION,
+  SET_PLAYERS_FILTERS_ACTION,
 } from './constants';
 
 import playersReducer from './reducer';
@@ -21,7 +21,7 @@ test('Players reducer should set a valid default value', () => {
 
 describe('Succeful players load', () => {
   const action = {
-    type: LOAD_PLAYERS,
+    type: LOAD_PLAYERS_ACTION,
     payload: [
       {
         'contractUntil' : '2022-06-30',
@@ -47,8 +47,8 @@ describe('Succeful players load', () => {
   }, action);
 
   test('Should reset error', () => {
-    expect(state.error).toEqual(false)
-  })
+    expect(state.error).toBe(false);
+  });
 
   test('Should set players ages', () => {
     expect(state.data).toEqual([
@@ -62,11 +62,11 @@ describe('Succeful players load', () => {
       }
     ]);
   });
-})
+});
 
 describe('Failed players load', () => {
   const action = {
-    type: LOAD_PLAYERS,
+    type: LOAD_PLAYERS_ACTION,
     error: true,
   };
 
@@ -76,35 +76,31 @@ describe('Failed players load', () => {
   }, action);
 
   test('Should reset data', () => {
-    expect(state.data).not.toBeDefined()
-  })
+    expect(state.data).not.toBeDefined();
+  });
 
   test('Should set error', () => {
-    expect(state.error).toEqual(true)
-  })
-})
+    expect(state.error).toBe(true);
+  });
+});
 
 describe('Players filters', () => {
   const action = {
-    type: SET_PLAYERS_FILTERS,
+    type: SET_PLAYERS_FILTERS_ACTION,
     payload: {
       age: 30,
       name: 'Cosme Fulanito',
       position: 'Algo'
     }
-  }
+  };
 
   const state = playersReducer(undefined, action);
 
-  test('Should set filters', () => {
-    expect(state.filters.age).toBeDefined();
-    expect(state.filters.position).toBeDefined();
-    expect(state.filters.name).toBeDefined();
-  })
-
   test('Should set valid filters', () => {
-    expect(state.filters.age).toEqual(30);
-    expect(state.filters.position).toEqual('Algo');
-    expect(state.filters.name).toEqual('Cosme Fulanito');
-  })
-})
+    expect(state.filters).toEqual({
+      age: 30,
+      position: 'Algo',
+      name: 'Cosme Fulanito'
+    });
+  });
+});

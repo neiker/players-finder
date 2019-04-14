@@ -31,9 +31,9 @@ export default function PlayersList({
         ))}
       </tbody>
     </table>
-  )
+  );
 }
 
 PlayersList.propTypers = {
   players: PropTypes.arrayOf(PropTypes.object).isRequired,
-}
+};

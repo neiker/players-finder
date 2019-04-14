@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import actions from './store/actions';
 import selectors from './store/selectors';
 
-import PlayersFilters from './filters/index.jsx';
-import PlayersList from './list/index.jsx';
+import PlayersFilters from './filters';
+import PlayersList from './list';
 
 export class Players extends React.PureComponent {
   static propTypes = {
@@ -15,15 +15,12 @@ export class Players extends React.PureComponent {
     loading: PropTypes.bool.isRequired,
 
     // Actions
-    fetchPlayers: PropTypes.func.isRequired
+    fetchPlayers: PropTypes.func.isRequired,
+    setPlayersFilters: PropTypes.func,
   };
 
   componentDidMount() {
     this.props.fetchPlayers();
-  }
-
-  onSearch = (filters) => {
-    this.props.setPlayersFilters(filters);
   }
 
   render () {
@@ -31,31 +28,32 @@ export class Players extends React.PureComponent {
       error,
       players,
       loading,
+      setPlayersFilters,
     } = this.props;
 
     if (loading) {
       return (
         <span>Loading data...</span>
-      )
+      );
     }
 
     if (error) {
       return (
         <span className="error-text">There's was an error loading data.</span>
-      )
+      );
     }
 
     return (
       <>
         <h1>Football Players Finder</h1>
 
-        <PlayersFilters onSubmit={this.onSearch} />
+        <PlayersFilters onSubmit={setPlayersFilters} />
 
         <hr />
         
         <PlayersList players={players} />
       </>
-    )
+    );
   }
 }
 

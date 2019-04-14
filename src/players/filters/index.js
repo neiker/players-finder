@@ -23,7 +23,7 @@ const positions = [
   'Right-Back',
 ];
 
-function validateAge(value) {
+export function validateAge(value) {
   if (value) {
     const parsedValue = Number(value);
 
@@ -32,7 +32,7 @@ function validateAge(value) {
     }
 
     if (parsedValue > 40 || parsedValue < 18) {
-      return 'Age must be between 18 and 40'
+      return 'Age must be between 18 and 40';
     }
   }
 
@@ -41,7 +41,7 @@ function validateAge(value) {
 
 function validateName(value) {
   // A Inés Ibáñez, Agustín Nuñez y muchas otras personas no le gusta esto. 
-  return /^[a-zA-Z]*$/.test(value) ? undefined : 'Invalid name';
+  return /^[a-zA-Z ]*$/.test(value) ? undefined : 'Invalid name';
 }
 
 function PlayersFilters({
@@ -66,7 +66,7 @@ function PlayersFilters({
 
           <div className="filters-from-row">
             <Select field="position">
-              <Option value="">
+              <Option value="" defaultValue>
                 All Positions
               </Option>
 
@@ -101,6 +101,6 @@ function PlayersFilters({
 
 PlayersFilters.propTypes = {
   onSubmit: PropTypes.func.isRequired
-}
+};
 
 export default PlayersFilters;

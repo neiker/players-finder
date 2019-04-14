@@ -1,23 +1,24 @@
 import axios from 'axios';
 
 import {
-  LOAD_PLAYERS,
-  SET_PLAYERS_FILTERS,
+  LOAD_PLAYERS_ACTION,
+  SET_PLAYERS_FILTERS_ACTION,
+  PLAYERS_ENDPOINT,
 } from './constants';
 
 function loadPlayersSuccess(players) {
   return {
-    type: LOAD_PLAYERS,
+    type: LOAD_PLAYERS_ACTION,
     payload: players
-  }
+  };
 }
 
 function loadPlayersFails(error) {
   return {
-    type: LOAD_PLAYERS,
+    type: LOAD_PLAYERS_ACTION,
     payload: error,
     error: true,
-  }
+  };
 }
 
 function fetchPlayers() {
@@ -25,7 +26,7 @@ function fetchPlayers() {
     let result;
 
     try {
-      result = await axios.get('https://football-players-b31f2.firebaseio.com/players.json?print=pretty');
+      result = await axios.get(PLAYERS_ENDPOINT);
       
     } catch (e) {
       dispatch(loadPlayersFails(e));
@@ -34,17 +35,17 @@ function fetchPlayers() {
     }
 
     dispatch(loadPlayersSuccess(result.data));
-  }
+  };
 }
 
 function setPlayersFilters(filters) {
   return {
-    type: SET_PLAYERS_FILTERS,
+    type: SET_PLAYERS_FILTERS_ACTION,
     payload: filters
-  }
+  };
 }
 
 export default {
   fetchPlayers,
   setPlayersFilters,
-}
+};

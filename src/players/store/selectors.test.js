@@ -258,7 +258,7 @@ describe('getPlayers', () => {
     });
 
     expect(response).toEqual([data[1]]);
-  })
+  });
 
   test('Should filter by name', () => {
     const response = selectors.getPlayers({
@@ -271,7 +271,7 @@ describe('getPlayers', () => {
     });
 
     expect(response).toEqual([data[0]]);
-  })
+  });
 
   test('Should filter by position', () => {
     const response = selectors.getPlayers({
@@ -284,7 +284,7 @@ describe('getPlayers', () => {
     });
 
     expect(response).toEqual([data[1], data[2], data[24]]);
-  })
+  });
 
   test('Should filter by position and age', () => {
     const response = selectors.getPlayers({
@@ -298,7 +298,7 @@ describe('getPlayers', () => {
     });
 
     expect(response).toEqual([data[4], data[5]]);
-  })
+  });
 
   test('Should filter by position, name and age', () => {
     const response = selectors.getPlayers({
@@ -313,7 +313,7 @@ describe('getPlayers', () => {
     });
 
     expect(response).toEqual([data[5]]);
-  })
+  });
 
   test('Should return an empty array when filters dont match any player', () => {
     const response = selectors.getPlayers({
@@ -326,7 +326,7 @@ describe('getPlayers', () => {
     });
 
     expect(response).toEqual([]);
-  })
+  });
 
   test('Should return the same array when is called with the same data and filters', () => {
     const response = selectors.getPlayers({
@@ -348,5 +348,5 @@ describe('getPlayers', () => {
     });
 
     expect(response).toBe(response2);
-  })
-})
+  });
+});

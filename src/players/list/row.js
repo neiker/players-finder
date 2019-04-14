@@ -19,7 +19,7 @@ export default function PlayerRow({
         {player.age}
       </td>
     </tr>
-  )
+  );
 }
 
 PlayerRow.propTypes = {
@@ -29,4 +29,4 @@ PlayerRow.propTypes = {
     nationality: PropTypes.string.isRequired,
     age: PropTypes.number.isRequired,
   }).isRequired
-}
+};

@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect'
+import { createSelector } from 'reselect';
 
 function getFilters(state) {
   return state.players.filters;
@@ -51,8 +51,8 @@ const getPlayers = createSelector(
 
     return data;
   }
-)
+);
 
 export default {
   getPlayers,
-}
+};

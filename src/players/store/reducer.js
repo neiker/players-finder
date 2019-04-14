@@ -1,6 +1,6 @@
 import {
-  LOAD_PLAYERS,
-  SET_PLAYERS_FILTERS,
+  LOAD_PLAYERS_ACTION,
+  SET_PLAYERS_FILTERS_ACTION,
 } from './constants';
 
 function getDefaultState() {
@@ -12,7 +12,7 @@ function getDefaultState() {
     },
     data: undefined,
     error: false,
-  }
+  };
 }
 
 function getAge(birthdayTimestamp, nowTimestamp = Date.now()) { 
@@ -29,7 +29,7 @@ function loadPlayersReducer(state, action) {
       // we don't care about the error details.
       error: true,
       data: undefined
-    }
+    };
   } else {
     return {
       ...state,
@@ -40,9 +40,9 @@ function loadPlayersReducer(state, action) {
         return ({
           ...player,
           age: getAge(birthdayTimestamp),
-        })
+        });
       })
-    }
+    };
   }
 
 }
@@ -60,11 +60,11 @@ function setPlayersFilters(state, action) {
 
 export default function playersReducer (state = getDefaultState(), action) {
   switch (action.type) {
-    case LOAD_PLAYERS:
+    case LOAD_PLAYERS_ACTION:
       return loadPlayersReducer(state, action);
-    case SET_PLAYERS_FILTERS:
+    case SET_PLAYERS_FILTERS_ACTION:
       return setPlayersFilters(state, action);
     default:
-      return state
+      return state;
   }
 }
